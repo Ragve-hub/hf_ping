@@ -1,0 +1,17 @@
+name: Keep Hugging Face Space Awake
+
+on:
+  schedule:
+    # Запуск каждые 40 минут (HF засыпает через 48 часов, но лучше пинговать чаще)
+    - cron: '*/40 * * * *'
+  workflow_dispatch: # Позволяет запустить вручную для проверки
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Ping Request
+        run: |
+          # Замените USER и SPACE на ваши данные из URL Hugging Face
+          URL="https://vector-am-bayes-service.hf.space"
+          curl -I -s -L $URL | grep "HTTP/"
